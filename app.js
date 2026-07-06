@@ -58,6 +58,9 @@ function renderHero(){
   document.getElementById("grand-total").textContent = rupiah(grandTotal);
   document.getElementById("progress-pct").textContent = pct + "%";
   document.getElementById("progress-fill").style.width = pct + "%";
+
+  const bus = document.getElementById("hero-bus");
+  if(bus) bus.style.left = Math.min(96, Math.max(2, pct)) + "%";
 }
 
 function renderRoster(){

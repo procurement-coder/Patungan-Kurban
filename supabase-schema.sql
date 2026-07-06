@@ -27,7 +27,7 @@ create table if not exists settings (
 );
 
 -- Target default per orang (silakan ubah lewat halaman web nanti)
-insert into settings (key, value) values ('target_per_orang', '2600000')
+insert into settings (key, value) values ('target_per_orang', '3500000')
 on conflict (key) do nothing;
 
 -- Isi 17 peserta awal
