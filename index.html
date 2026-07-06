@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patungan Qurban — Buku Tabungan</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow">Buku tabungan bersama</p>
+    <h1 class="title">Patungan <em>Qurban</em></h1>
+    <p class="hero-sub">Catatan setoran 17 peserta menuju qurban tahun ini. Setiap setoran dicatat dan distempel di sini, terlihat oleh semua.</p>
+
+    <div class="ledger-total">
+      <div class="total-figure">
+        <p class="label">Total terkumpul</p>
+        <p class="amount" id="grand-total">Rp0</p>
+      </div>
+      <div class="progress-block">
+        <p class="label"><span>Menuju target keseluruhan</span><span id="progress-pct">0%</span></p>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="active" data-panel="dashboard">Dashboard</button>
+    <button data-panel="input">Input data</button>
+    <button data-panel="pengaturan">Pengaturan</button>
+  </nav>
+
+  <section id="panel-dashboard" class="panel active">
+    <div class="roster" id="roster"></div>
+  </section>
+
+  <section id="panel-input" class="panel">
+    <div class="form-card">
+      <h2>Catat setoran baru</h2>
+      <div class="field">
+        <label for="select-name">Nama peserta</label>
+        <select id="select-name"></select>
+      </div>
+      <div class="field">
+        <label for="input-amount">Jumlah (Rp)</label>
+        <input id="input-amount" type="number" min="0" step="1000" placeholder="contoh: 250000">
+      </div>
+      <div class="field">
+        <label for="input-note">Catatan (opsional)</label>
+        <input id="input-note" type="text" placeholder="contoh: setoran bulan Juli">
+      </div>
+      <button class="btn" id="btn-add">Stempel setoran</button>
+    </div>
+
+    <h2 style="font-family:'Fraunces',serif; font-weight:600; font-size:18px; margin-bottom:12px;">Riwayat semua setoran</h2>
+    <div class="stamp-feed" id="stamp-feed"></div>
+  </section>
+
+  <section id="panel-pengaturan" class="panel">
+    <div class="form-card">
+      <h2>Target per orang</h2>
+      <div class="settings-row">
+        <div class="field">
+          <label for="input-target">Target tabungan tiap peserta (Rp)</label>
+          <input id="input-target" type="number" min="0" step="10000">
+        </div>
+        <button class="btn ghost" id="btn-save-target">Simpan</button>
+      </div>
+      <p style="font-size:13px; color:var(--ink-soft); margin:0;">Target ini dipakai untuk menghitung progress bar di atas dan status "lunas" tiap peserta.</p>
+    </div>
+  </section>
+
+  <footer class="note">
+    Patungan Qurban &middot; disimpan di Supabase &middot; dibagikan ke semua peserta
+  </footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
