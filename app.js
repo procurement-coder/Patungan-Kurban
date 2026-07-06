@@ -1,4 +1,4 @@
-const supabase = window.supabase.createClient(
+const supabaseClient = window.supabase.createClient(
   window.SUPABASE_CONFIG.SUPABASE_URL,
   window.SUPABASE_CONFIG.SUPABASE_ANON_KEY
 );
@@ -16,9 +16,9 @@ function formatDate(iso){
 
 async function loadAll(){
   const [{ data: p, error: pErr }, { data: c, error: cErr }, { data: s, error: sErr }] = await Promise.all([
-    supabase.from("participants").select("*").order("id"),
-    supabase.from("contributions").select("*").order("created_at", { ascending: false }),
-    supabase.from("settings").select("*").eq("key", "target_per_orang").maybeSingle()
+    supabaseClient.from("participants").select("*").order("id"),
+    supabaseClient.from("contributions").select("*").order("created_at", { ascending: false }),
+    supabaseClient.from("settings").select("*").eq("key", "target_per_orang").maybeSingle()
   ]);
 
   if(pErr || cErr){
@@ -110,7 +110,7 @@ function renderFeed(){
   el.querySelectorAll(".del-link").forEach(btn => {
     btn.addEventListener("click", async () => {
       const id = btn.getAttribute("data-id");
-      const { error } = await supabase.from("contributions").delete().eq("id", id);
+      const { error } = await supabaseClient.from("contributions").delete().eq("id", id);
       if(!error){
         contributions = contributions.filter(c => String(c.id) !== String(id));
         renderAll();
@@ -138,7 +138,7 @@ document.getElementById("btn-add").addEventListener("click", async () => {
 
   if(!participantId || !amount || amount <= 0) return;
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from("contributions")
     .insert({ participant_id: participantId, amount, note: noteInput.value || null })
     .select()
@@ -160,7 +160,7 @@ document.getElementById("btn-save-target").addEventListener("click", async () =>
   const val = parseFloat(document.getElementById("input-target").value);
   if(!val || val <= 0) return;
 
-  const { error } = await supabase
+  const { error } = await supabaseClient
     .from("settings")
     .upsert({ key: "target_per_orang", value: String(val) });
 
