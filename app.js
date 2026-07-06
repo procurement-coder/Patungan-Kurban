@@ -1,5 +1,7 @@
-const { SUPABASE_URL, SUPABASE_ANON_KEY } = window.SUPABASE_CONFIG;
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabase = window.supabase.createClient(
+  window.SUPABASE_CONFIG.SUPABASE_URL,
+  window.SUPABASE_CONFIG.SUPABASE_ANON_KEY
+);
 
 let participants = [];
 let contributions = [];
